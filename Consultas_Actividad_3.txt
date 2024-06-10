@@ -1,0 +1,206 @@
+SENTENCIAS PUNTO 5.2
+
+punto a
+
+Buscar documentos
+
+db.act_grupal_openDataLocalesMadrid.findOne(
+    { "desc_barrio_local": "GUINDALERA"});
+
+Modifcar documentos
+
+db.act_grupal_openDataLocalesMadrid.updateOne(
+    { "desc_barrio_local": "GUINDALERA"},
+    { 
+        $set: {
+            "id_situacion_terraza": 4,
+            "desc_situacion_local": "Cerrado",
+            "desc_situacion_terraza": "Cerrada"
+        }
+    }
+);
+
+
+punto b
+
+Buscar documentos 
+
+db.act_grupal_openDataLocalesMadrid.find({ "desc_ubicacion_terraza": "Acera",
+"desc_periodo_terraza":
+"Estacional"});
+
+Modificar los documentos
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "desc_ubicacion_terraza": "Acera",
+      "desc_periodo_terraza":"Estacional" },
+    [
+        { 
+            $set: {
+                "inspeccionar": {
+                    $cond: { 
+                        if: { $gt: ["$mesas_es", 10] }, 
+                        then: true, 
+                        else: false 
+                    }
+                }
+            }
+        }
+    ]
+);
+
+punto c
+
+Buscar los documentos que cumplan con inspeccionar
+
+db.act_grupal_openDataLocalesMadrid.findOne(
+    { "inspeccionar": true });
+
+Modificar los documentos de inspeccionar = true
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "inspeccionar": true },
+    [
+        {
+            $set: {
+                "mesas_aux_es": { $sum: ["$mesas_aux_es", 2] },
+                "sillas_es": { $sum: ["$sillas_es", 8] }
+            }
+        }
+    ]
+);
+
+punto d A las terrazas que no deban ser inspeccionadas, añadid el campo estado con el valor
+
+Buscar documentos con inspeccionar = false
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "inspeccionar": false });
+
+Modificar los documentos según estas modificaciones 
+
+añadid el campo estado con el valor:
+- 1 si el número de sillas es menor que 10.
+- 2 si el número de sillas está entre 10 y 20.
+- 3 si cuenta con más de 20 sillas.
+
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "inspeccionar": false },
+    [
+        {
+            $set: {
+                "estado": {
+                    $switch: {
+                        branches: [
+                            { case: { $lt: ["$sillas_es", 10] }, then: 1 }, //1 si el número de sillas es menor que 10.
+                            { case: { $and: [ { $gte: ["$sillas_es", 10] }, { $lte: ["$sillas_es", 20] } ] }, then: 2 }, //2 si el número de sillas está entre 10 y 20.
+                            { case: { $gt: ["$sillas_es", 20] }, then: 3 } //3 si cuenta con más de 20 sillas.
+                        ],
+                        default: null
+                    }
+                }
+            }
+        }
+    ]
+);
+
+punto e
+
+Buscar los documentos con hora de cierre mayor 00:00:00 lunes a jueves
+
+db.act_grupal_openDataLocalesMadrid.findOne({ "hora_fin_LJ_es": { $gt: "00:00:00" },"desc_periodo_terraza":"Estacional"});
+
+Modificar los documentos
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "hora_fin_LJ_es": { $gt: "00:00:00" },
+      "desc_periodo_terraza":"Estacional" },
+    { 
+        $set: { "hora_fin_LJ_es": "00:00:00" }
+    }
+        
+);
+
+punto f
+
+Buscar los documentos con hora de cierre de 2:30:00 Viernes a sabado
+
+db.act_grupal_openDataLocalesMadrid.findOne({ "hora_fin_VS_es": { $eq: "2:30:00" },"desc_periodo_terraza":"Estacional"});
+
+Modificar los documentos
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "hora_fin_VS_es": { $eq: "2:30:00" },
+      "desc_periodo_terraza":"Estacional" },
+    { 
+        $set: { "hora_fin_VS_es": "2:00:00" }
+    }
+        
+);
+
+punto g
+
+buscar los documentos de la calle Alcala
+
+db.act_grupal_openDataLocalesMadrid.findOne({DESC_CLASE:"CALLE",DESC_NOMBRE: "ALCALA"});
+
+Actualizar el campo 'inspeccionar' para todos los locales en la calle Alcalá en Madrid
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { DESC_CLASE: "CALLE", DESC_NOMBRE: "ALCALA" },
+    { 
+        $set: { "inspeccionar": true }
+    }
+);
+
+punto h
+
+db.act_grupal_openDataLocalesMadrid.findOne({ "desc_situacion_terraza": "Abierta" })
+
+Agregar el arreglo revisión con los campos especificados
+
+db.act_grupal_openDataLocalesMadrid.updateMany(
+    { "desc_situacion_terraza": "Abierta" },
+    { 
+        $set: { 
+            "revision": {
+                "prox_inspeccion": 10,
+                "puntuacion": 80,
+                "comentario": "separar las mesas"
+            }
+        }
+    }
+);
+
+Ver la salida
+
+db.act_grupal_openDataLocalesMadrid.findOne(
+    {},
+    { _id: 1, revision: 1, desc_situacion_terraza: 1 }
+);
+
+punto i Crear una nueva colección llamada Zona1, con todos los locales que pertenezcan al distrito de Villaverde.
+
+db.act_grupal_openDataLocalesMadrid.aggregate([
+    { $match: { "desc_distrito_local": "VILLAVERDE" } }, // Filtrar por el distrito de Villaverde
+    { $out: "Zona1" } // Insertar los resultados en la colección Zona1
+]);
+
+punto j Crear una nueva colección llamada Zona2, con todos los locales que pertenezcan al distrito de Salamanca y barrio Castellana.
+
+db.act_grupal_openDataLocalesMadrid.aggregate([
+    { 
+        $match: { 
+            "desc_distrito_local": "SALAMANCA", // Filtrar por el distrito de Salamanca
+            "desc_barrio_local": "CASTELLANA" // Filtrar por el barrio Castellana
+        } 
+    },
+    { $out: "Zona2" } // Insertar los resultados en la colección Zona2
+]);
+
+
+
+
+
+
