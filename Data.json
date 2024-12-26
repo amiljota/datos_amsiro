@@ -1,4 +1,20 @@
-[{ "alumno": "Amilkar", "nota": 9.09, "ranking": 10 },
-{ "alumno": "Juan", "nota": 4, "ranking": 150 },
-{ "alumno": "Ceci", "nota": 8.2, "ranking": 25 }
+[
+   {
+      "partido":"PP",
+      "mediaAutoubicacion":7.09,
+      "votantes":2509,
+      "nsnc":302
+   },
+   {
+      "partido":"PSOE",
+      "mediaAutoubicacion":3.81,
+      "votantes":2330,
+      "nsnc":260
+   },
+   {
+      "partido":"IU",
+      "mediaAutoubicacion":3,
+      "votantes":518,
+      "nsnc":14
+   }
 ]
