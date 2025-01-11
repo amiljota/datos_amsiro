@@ -1,0 +1,28 @@
+[
+    {
+        "tienda": "Amazon.com",
+        "ventas": 4416,
+        "ranking": 15
+    },
+    {
+        "tienda": "Tienda_Sierra.com",
+        "ventas": 300,
+        "ranking": 10
+    },
+    {
+        "tienda": "Google.com",
+        "ventas": 500,
+        "ranking": 13
+    },
+
+    {
+        "tienda": "Amilkar.com",
+        "ventas": 410,
+        "ranking": 8
+    },
+    {
+        "tienda": "Latienda.com",
+        "ventas": 290,
+        "ranking": 6
+    }
+]
