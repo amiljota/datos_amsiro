@@ -2,27 +2,52 @@
     {
         "tienda": "Amazon.com",
         "ventas": 4416,
-        "ranking": 15
+        "ranking": 1
     },
     {
-        "tienda": "Tienda_Sierra.com",
-        "ventas": 300,
-        "ranking": 10
+        "tienda": "tiendajuan.com",
+        "ventas": 3000,
+        "ranking": 3
     },
     {
         "tienda": "Google.com",
-        "ventas": 500,
-        "ranking": 13
+        "ventas": 5000,
+        "ranking": 2
     },
 
     {
-        "tienda": "Amilkar.com",
-        "ventas": 410,
+        "tienda": "tiendasierra.com",
+        "ventas": 6000,
+        "ranking": 10
+    },
+     {
+        "tienda": "tiendadonpepe.com",
+        "ventas": 1000,
+        "ranking": 4
+    },
+    {
+        "tienda": "tiendalaesquina.com",
+        "ventas": 1500,
+        "ranking": 5
+    },
+    {
+        "tienda": "tiendalaunir.com",
+        "ventas": 2000,
+        "ranking": 7
+    },
+    {
+        "tienda": "tiendalaupc.com",
+        "ventas": 4700,
         "ranking": 8
     },
     {
-        "tienda": "Latienda.com",
-        "ventas": 290,
+        "tienda": "toyota.com",
+        "ventas": 3000,
+        "ranking": 9
+    },
+    {
+        "tienda": "Amilkar.com",
+        "ventas": 2000,
         "ranking": 6
     }
 ]
